@@ -19,9 +19,14 @@
 	</style>
 </head>
 <body>
-	<div id="starting">
+	<div id="goaldiv">
 		<label for="goal">Goal: </label>
 		<input type="text" name="goal" id="goalinput" value="" />	
+	</div>
+	<div id="timediv">
+		<p><span id="minutes"></span> : <span id="seconds"></p>
+	</div>
+	<div id="starting">	
 		<button onclick="start()">Start</button>
 	</div><br>
 	<div id="during">
@@ -36,119 +41,119 @@
 		<button onclick="rest()">Rest</button>
 	</div>
 </body>
+<script src="pomodoro.js"></script>
 <script type="text/javascript">
-	var time = 10;
-	var resttime = 5;
-	var defaultrestime = 5;
-	var insession = true;
-	var startingdiv = document.getElementById("starting");
-	var duringdiv = document.getElementById("during");
-	var endingdiv = document.getElementById("ending");
-	var goalinput = document.getElementById("goalinput");
+	// var time = 10;
+	// var resttime = 5;
+	// var defaultrestime = 5;
+	// var insession = true;
+	// var startingdiv = document.getElementById("starting");
+	// var duringdiv = document.getElementById("during");
+	// var endingdiv = document.getElementById("ending");
 
-	function showstarting() {
-		startingdiv.style.display = "block";
-		duringdiv.style.display = "none";
-		endingdiv.style.display = "none";
-	}
+	// function showstarting() {
+	// 	startingdiv.style.display = "block";
+	// 	duringdiv.style.display = "none";
+	// 	endingdiv.style.display = "none";
+	// }
 
-	function showduring() {
-		startingdiv.style.display = "none";
-		duringdiv.style.display = "block";
-		endingdiv.style.display = "none";
-	}
+	// function showduring() {
+	// 	startingdiv.style.display = "none";
+	// 	duringdiv.style.display = "block";
+	// 	endingdiv.style.display = "none";
+	// }
 
-	function showending() {
-		startingdiv.style.display = "none";
-		duringdiv.style.display = "none";
-		endingdiv.style.display = "block";
-	}
+	// function showending() {
+	// 	startingdiv.style.display = "none";
+	// 	duringdiv.style.display = "none";
+	// 	endingdiv.style.display = "block";
+	// }
 
-	function duringtoggle() {
-		if (document.getElementById("play").style.display == "block") {
-			document.getElementById("play").style.display = "none";
-			document.getElementById("pause").style.display = "block";
-		}
-		else {
-			document.getElementById("play").style.display = "block";
-			document.getElementById("pause").style.display = "none";
-		}
-	}
+	// function duringtoggle() {
+	// 	if (document.getElementById("play").style.display == "block") {
+	// 		document.getElementById("play").style.display = "none";
+	// 		document.getElementById("pause").style.display = "block";
+	// 	}
+	// 	else {
+	// 		document.getElementById("play").style.display = "block";
+	// 		document.getElementById("pause").style.display = "none";
+	// 	}
+	// }
 
-	function pomodoro() {
-		// 
-		var timerInterval = setInterval(countdown, 1000);
+	// function pomodoro() {
+	// 	// 
+	// 	var timerInterval = setInterval(countdown, 1000);
 
-		function countdown () {
-			if (time == 0) {
-				clearTimeout(timerInterval);
-				console.log("Timer out");
-				if (insession) {
-					showending();
-					insession = false;
-				}
-				else {
-					showstarting();
-					insession = true;
-				}
-			}
-			else {
-				time--;
-				console.log(time);
+	// 	function countdown () {
+	// 		if (time == 0) {
+	// 			clearTimeout(timerInterval);
+	// 			console.log("Timer out");
+	// 			if (insession) {
+	// 				showending();
+	// 				insession = false;
+	// 			}
+	// 			else {
+	// 				showstarting();
+	// 				insession = true;
+	// 			}
+	// 		}
+	// 		else {
+	// 			time--;
+	// 			console.log(time);
 				
-			}
-			document.getElementById("pause").onclick = function () {
-				clearTimeout(timerInterval);
-				duringtoggle();
-			}
+	// 		}
+	// 		document.getElementById("pause").onclick = function () {
+	// 			clearTimeout(timerInterval);
+	// 			duringtoggle();
+	// 		}
 
-			document.getElementById("reset").onclick = function() {
-				clearTimeout(timerInterval);
-				if (insession) {
-					time = 10;
-					showstarting();
-				}
-				else {
-					time = resttime;
-					showending();
-				}
-				console.log("reset");
-				console.log(time);
-			}
-		}
-	}
+	// 		document.getElementById("reset").onclick = function() {
+	// 			clearTimeout(timerInterval);
+	// 			if (insession) {
+	// 				time = 10;
+	// 				showstarting();
+	// 			}
+	// 			else {
+	// 				time = resttime;
+	// 				showending();
+	// 			}
+	// 			console.log("reset");
+	// 			console.log(time);
+	// 		}
+	// 	}
+	// }
 
-	function start () {
-		console.log(goalinput.value);
-		document.getElementById("goalp").innerHTML = goalinput.value;
-		startingdiv.style.display = "none";
-		duringdiv.style.display = "block";
-		time = 10;
-		insession = true;
-		pomodoro();
+	// function start () {
+	// 	console.log(goalinput.value);
+	// 	document.getElementById("goalp").innerHTML = document.getElementById("goalinput").value;
+	// 	startingdiv.style.display = "none";
+	// 	duringdiv.style.display = "block";
+	// 	time = 10;
+	// 	insession = true;
+	// 	pomodoro();
 
-	}
+	// }
 
-	function extend() {
-		time = 10;
-		resttime += defaultrestime
-		console.log(resttime);
-		insession = true;
-		showduring();
-		pomodoro();
-	}
+	// function extend() {
+	// 	time = 10;
+	// 	resttime += defaultrestime
+	// 	console.log(resttime);
+	// 	insession = true;
+	// 	showduring();
+	// 	pomodoro();
+	// }
 
-	function rest() {
-		time = resttime;
-		insession = false;
-		showduring();
-		pomodoro();
-	}
+	// function rest() {
+	// 	time = resttime;
+	// 	insession = false;
+	// 	showduring();
+	// 	pomodoro();
+	// }
 
-	function play() {
-		duringtoggle();
-		pomodoro();
-	}
+	// function play() {
+	// 	duringtoggle();
+	// 	pomodoro();
+	// }
 
 </script>
 </html>
