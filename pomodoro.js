@@ -1,12 +1,13 @@
-	var defaultsession = 120;
-	var defaultrestime = 5;
+	var defaultsession = 1500;
+	var defaultrestime = 300;
 	var time = defaultsession;
 	var resttime = defaultrestime;
 	var insession = true;
 	var startingdiv = document.getElementById("starting");
 	var duringdiv = document.getElementById("during");
 	var endingdiv = document.getElementById("ending");
-	showtime()
+	var audio = new Audio('alarm.mp3');
+	showtime();
 
 	function showstarting() {
 		startingdiv.style.display = "block";
@@ -37,7 +38,23 @@
 		}
 	}
 
-	// function goaltoggle()
+	function inputgoal() {
+		document.getElementById("goalp").style.display = "block";
+		document.getElementById("goalp").innerHTML = document.getElementById("goalinput").value;
+		document.getElementById("goaldiv").style.display = "none";
+	}
+
+	function askgoal() {
+		document.getElementById("goalp").style.display = "none";
+		document.getElementById("goalinput").value = "";
+		document.getElementById("goaldiv").style.display = "block";
+	}
+
+	function removegoal() {
+		document.getElementById("goalp").style.display = "none";
+		document.getElementById("goalinput").value = "";
+		document.getElementById("goaldiv").style.display = "none";
+	}
 
 	function pomodoro() {
 		// 
@@ -46,21 +63,24 @@
 
 		function countdown () {
 			if (time == 0) {
+				showtime();
 				clearTimeout(timerInterval);
 				console.log("Timer out");
-				if (insession) {
+				askgoal();
+				if (insession) { // after session
 					showending();
 					insession = false;
 				}
-				else {
+				else { // after resting
 					showstarting();
 					insession = true;
+
 				}
 			}
 			else {
+				showtime();
 				time--;
 				showtime();
-				
 			}
 			document.getElementById("pause").onclick = function () {
 				clearTimeout(timerInterval);
@@ -84,23 +104,20 @@
 	}
 
 	function start () {
-		console.log(goalinput.value);
-		document.getElementById("goalp").innerHTML = document.getElementById("goalinput").value;
-		startingdiv.style.display = "none";
-		duringdiv.style.display = "block";
+		showduring();
 		insession = true;
 		time = defaultsession;
+		resttime = defaultrestime;
+		inputgoal();
 		pomodoro();
-
-
 	}
 
 	function extend() {
-		time = 10;
-		resttime += defaultrestime
-		console.log(resttime);
+		time = defaultsession;
+		resttime += defaultrestime;
 		insession = true;
 		showduring();
+		inputgoal();
 		pomodoro();
 	}
 
@@ -108,6 +125,7 @@
 		time = resttime;
 		insession = false;
 		showduring();
+		removegoal();
 		pomodoro();
 	}
 

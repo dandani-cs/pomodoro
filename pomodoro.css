@@ -1,0 +1,13 @@
+#starting {
+	display: block;
+}
+#during {
+	display: none;
+}
+#ending {
+	display: none;
+}
+
+#play {
+	display: none;
+}
